@@ -21,6 +21,7 @@
     overflow-x: hidden;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    overscroll-behavior-y: contain;
     }
 
     body::before {
@@ -1202,9 +1203,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-             window.onbeforeunload = function() {
-        return "Dude, are you sure you want to leave? Think of the kittens!";
-    }
+          
              // Header click to show associated subheaders
              $(".header").click(function () {
         const group = $(this).data("group");
