@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
     <link rel="manifest" href="manifest.json">
@@ -23,6 +24,8 @@
     scrollbar-width: none;  /* Firefox */
     overscroll-behavior-y: contain;
     }
+    #hume{font-size: 1.7em; color: hsl(30, 95%, 80%);}
+    #mainMason{font-size: 1.2em; color:hsl(30, 85%, 82%) ;}
 
     body::before {
     content: '';
@@ -56,7 +59,7 @@
 
  
     .button {
-    min-width: 40px !important;
+        min-width: 40px !important;
     max-width: 40px !important;
     min-height: 40px !important;
     max-height: 40px !important;
@@ -64,12 +67,13 @@
     padding: 0;
     cursor: pointer;
     border: none;
+    background-color: #34291e;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    flex: 0 0 40px !important; /* This prevents any flex resizing */
+    flex: 0 0 40px !important;
     }
     #redGrade-background,
     #greenGrade-background,
@@ -87,7 +91,72 @@
     padding: 0;
     }
 
-     .right-column button.button {
+    .control-buttons {
+    display: flex;
+    gap: 4px;
+    flex-direction: row;
+    justify-content: center;
+}
+/* EXISTING CLASS - Modified properties */
+
+
+/* NEW SELECTORS - For main control buttons */
+/* These need corresponding data-type attributes added to the HTML */
+.control-buttons button[data-type="colors"] {
+    background-color: #271b1b;
+    color: transparent;
+}
+
+.control-buttons button[data-type="fonts"] {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: #271b1b;
+    color: #ab9374;
+    font-size: 28px;
+}
+
+.control-buttons button[data-type="sizes"] {
+    font-size: 18px;
+    background-color: #271b1b;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #9a7d6c;
+}
+
+.control-buttons button[data-type="width"] {
+    font-size: 18px;
+    background-color: #271b1b;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #9a7d6c;
+}
+#colors-row button[data-gradient*="hsl(10"] {
+    
+    background: linear-gradient(rgb(14, 14, 14), hsl(10, 32%, 36%));
+    color: transparent;
+}
+
+#colors-row button[data-gradient*="hsl(110"] {
+    background: linear-gradient(rgb(14, 14, 14), 30%, hsl(110, 32%, 36%));
+    color: transparent;
+}
+
+#colors-row button[data-gradient*="hsl(200"] {
+    background: linear-gradient(rgb(14, 14, 14), 30%, hsl(200, 32%, 36%));
+    color: transparent;
+}
+
+#colors-row button[data-gradient*="hsl(270"] {
+    background: linear-gradient(rgb(14, 14, 14), 30%, hsl(270, 32%, 36%));
+    color: transparent;
+}
+
+.option-row {
+    display: none;
+    flex-direction: row !important;
+    gap: 4px;
+    
+    justify-content: center;
+}
+
+.right-column button.button {
     width: 40px !important;
     height: 40px !important;
     min-width: 40px !important;
@@ -98,7 +167,16 @@
     padding: 0 !important;
     margin: 0 !important;
     box-sizing: border-box !important;
-    }
+}
+#colors-row,
+#fonts-row,
+#sizes-row,
+#width-row {
+    display: none;
+    flex-direction: row !important;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
 
     #redGrade-background {
     background: linear-gradient(rgb(14, 14, 14), hsl(10, 32%, 36%) );
@@ -121,6 +199,28 @@
     background-color: #333;
     font-family:centaur;
     }
+
+    #fonts-row button[data-font*="Arial"] {
+    font-family: Arial, sans-serif;
+}
+
+#fonts-row button[data-font*="Georgia"] {
+    font-family: Georgia, serif;
+}
+
+#fonts-row button[data-font*="centaur"] {
+    font-family: centaur;
+}
+
+#fonts-row button[data-font*="Times"] {
+    font-family: "Times New Roman", serif;
+}
+#sizes-row .button, #width-row .button {
+    font-size: 18px;
+}
+
+
+    
 
 
 
@@ -159,19 +259,17 @@
     }
 
     .right-column {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    flex-direction: column;
-    transition: all 0.3s ease;
     right: 0;
     background: none;
-    gap: 0;
-    width: 40px !important; /* Force container width */
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+    
 
     
     .content {
@@ -234,13 +332,21 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
+    flex-direction: column;
     width: auto;
-    flex-direction: row;
-    justify-content: center;
     padding: 0;
     background: none;
     z-index: 100;
-    }
+}
+
+.vertical-layout .control-buttons {
+    flex-direction: row;
+}
+
+.vertical-layout .option-row {
+    flex-direction: row;
+    margin-top: 4px;
+}
 
     .vertical-layout .left-column {
     position: relative;
@@ -274,20 +380,22 @@
     margin: 10px 0;
     width: 100%;
     }
-    .vertical-layout .sub-header:not(.hidden) + div:not(.hidden) {
+  /* REPLACE the existing .vertical-layout .sub-header:not(.hidden) + div:not(.hidden) class */
+.vertical-layout .sub-header:not(.hidden) + div:not(.hidden) {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
     width: 100%;
-    }
+    margin-top: 20px;  /* Added margin-top to create space below subheader */
+}
 
     .vertical-layout .item:not(.hidden) {
     flex: 0 1 auto;
-    margin: 3px 5px; 
-    padding: 5px 15px;
-    }
+    margin: 3px 2px;  /* Changed from 3px 5px */
+    padding: 5px 8px; /* Changed from 5px 15px */
+}
 
     .vertical-layout .header {
     width: 600px;
@@ -299,7 +407,7 @@
 
     .vertical-layout .sub-header {
     margin: 2px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     padding: 2px 5px;
     text-align: center;
     
@@ -321,8 +429,8 @@
     display: none;
     }
     #layout-toggle {
-    background-color: #333;
-    color: white;
+    background-color: #271b1b;
+    color: rgb(173, 156, 147);
     border: none;
     width: 40px;
     height: 40px;
@@ -363,9 +471,59 @@
 
     <div class="container">
         <div class="left-column">
-            <div class="header" data-group="group1">The Limit</div>
+            <div id="hume" data-group="group9" class="header">Great  </div>
+            <div data-group="group9" class="sub-header hidden"> Hume</div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="myLife">My Own Life </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="ourInsight">A New Scene of Thought </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="Epicurean">Epicurean </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="theStoic"> The Stoic</div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="Platonist">Platonist </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="TheSceptic">The Sceptic </div>
 
-         
+            <div data-group="group9" class="sub-header hidden">Leibnitz </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="LetterFoucher"> Letter to Foucher</div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="PrefaceUniversalCharacteristic">Universal Characteristic</div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="Meditations">Meditations</div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="PrimaryTruths">Primary Truths</div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="UltimateOriginationThings"> Ultimate Origin</div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="GodLogic">God & Logic </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="Cartesians">Cartesians </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="TwoSectsNaturalists"> Two Sects</div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="Locke">Locke</div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="BarbaricPhysics">Barbaric Physics</div>
+
+            <div data-group="group9" class="sub-header hidden"> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+
+            <div data-group="group9" class="sub-header hidden"> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+
+            <div data-group="group9" class="sub-header hidden"> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+
+
+
+
+
+
+
+
+            <div class="header" id="mainMason" data-group="group-mason">Mason</div>
+    
+            <!-- The Limit with all its existing structure -->
+            <div class="header hidden" data-group="group1" data-mason="true">The Limit</div>
             <div  data-group="group1" class="sub-header hidden">Grown Up</div>
             <div class="item hidden"  data-group="group1" class="item" data-file="theLimit.html" data-id="maturity">Maturity</div>
             <div class="item hidden"  data-group="group1" class="item" data-file="theLimit.html" data-id="aman">A Man</div>
@@ -457,16 +615,13 @@
             <div class="item hidden"  data-group="group1" class="item" data-file="theLimit.html" data-id="restriction">Restriction</div>
             <div class="item hidden"  data-group="group1" class="item" data-file="theLimit.html" data-id="reproach">Reproach</div>
             <div class="item hidden"  data-group="group1" class="item" data-file="theLimit.html" data-id="mindful">Mindful</div>
+           
 
 
 
-
-
-
-
-
-
-            <div  data-group="group2" class="header">Rounding Out</div>
+        
+            <!-- Rounding Out with all its existing structure -->
+            <div class="header hidden" data-group="group2" data-mason="true">Rounding Out</div>
             <div data-group="group2" class="sub-header hidden">Theology </div>
             <!--  -->
             <div class="item hidden"  data-group="group2" class="item" data-file="theLimit.html" data-id="gods">Gods</div>
@@ -530,14 +685,14 @@
             <div class="item hidden"  data-group="group2" class="item" data-file="theLimit.html" data-id="discipline">Discipline</div>
             <!--  -->
 
+          
 
 
 
 
-
-
-
-            <div  data-group="group3" class="header">Near Light </div>
+        
+            <!-- Near Light with all its existing structure -->
+            <div class="header hidden" data-group="group3" data-mason="true">Near Light</div>
             <div data-group="group3" class="sub-header hidden">Good Life </div>
             <div class="item hidden"  data-group="group3" class="item" data-file="theLimit.html" data-id="course">Course</div>
             <div class="item hidden"  data-group="group3" class="item" data-file="theLimit.html" data-id="anevenroad">An Even Road</div>
@@ -580,12 +735,11 @@
             <div class="item hidden"  data-group="group3" class="item" data-file="theLimit.html" data-id="beginningsend">Beginning's End</div>
             <!--  -->
 
-
-
-
-
-
-            <div  data-group="group4" class="header">Summer </div>
+         
+            <!-- ... rest of Near Light items ... -->
+        
+            <!-- Summer with all its existing structure -->
+            <div class="header hidden" data-group="group4" data-mason="true">Summer</div>
             <div data-group="group4" class="sub-header hidden">Ebbs</div>
             <div class="item hidden"  data-group="group4" class="item" data-file="theLimit.html" data-id="adultbend">Adult Bend</div>
             <div class="item hidden"  data-group="group4" class="item" data-file="theLimit.html" data-id="sweetqualities">Sweet Qualities</div>
@@ -626,16 +780,10 @@
             <div class="item hidden"  data-group="group4" class="item" data-file="theLimit.html" data-id="pathofcheer">Path of Cheer</div>
             <div class="item hidden"  data-group="group4" class="item" data-file="theLimit.html" data-id="foritself">For Itself</div>
             <!--  -->
-
-
-
-
-
-
-
-
-
-            <div  data-group="group5" class="header"> Warm Winters</div>
+            <!-- ... rest of Summer items ... -->
+        
+            <!-- Warm Winters with all its existing structure -->
+            <div class="header hidden" data-group="group5" data-mason="true">Warm Winters</div>
             <div data-group="group5" class="sub-header hidden">Beyond </div>
             <div class="item hidden"  data-group="group5" class="item" data-file="theLimit.html" data-id="lifeofintellect">Life of Intellect</div>
             <div class="item hidden"  data-group="group5" class="item" data-file="theLimit.html" data-id="theamericanscholar">The American Scholar</div>
@@ -724,12 +872,12 @@
             <div class="item hidden"  data-group="group5" class="item" data-file="theLimit.html" data-id="upright">Upright</div>
             <div class="item hidden"  data-group="group5" class="item" data-file="theLimit.html" data-id="birthday">Birthday</div>
 
+           
 
 
+            
 
-
-
-            <div data-group="group6" class="header">Color of Ends </div>
+             <div data-group="group6" class="header">Color of Ends </div>
             <div data-group="group6" class="sub-header hidden">Reproach </div>
             <!--Final Retreat  -->
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="doldrums">Doldrums</div>
@@ -1162,6 +1310,42 @@
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="aneasierview">An Easier View</div>
 
 
+           
+
+
+
+
+
+
+
+
+
+
+          
+
+
+
+
+
+
+
+
+
+
+         
+
+           
+
+
+
+
+
+
+
+
+
+            
+
 
 
 
@@ -1180,12 +1364,41 @@
         </div>
 
         <div class="right-column">
-            <button class="button" id="redGrade-background"></button>
-            <button class="button" id="greenGrade-background"></button>
-            <button class="button" id="arial-font">i</button>
-            <button class="button" id="georgia-font">i</button>
-            <button class="button" id="centaur-font">i</button>
-            <button class="button" id="layout-toggle">↕</button>
+            <div class="control-buttons">
+                <button class="button control-toggle" data-type="colors"> </button>
+                <button class="button control-toggle" data-type="fonts">f</button>
+                <button class="button control-toggle" data-type="sizes">S</button>
+                <button class="button control-toggle" data-type="width">W</button>
+                <button class="button" id="layout-toggle">↕</button>
+            </div>
+            
+            <div class="option-row" id="colors-row" style="display: none;">
+                <button class="button" data-gradient="linear-gradient(rgb(14, 14, 14), hsl(10, 32%, 36%))"> </button>
+                <button class="button" data-gradient="linear-gradient(rgb(14, 14, 14), 30%, hsl(110, 32%, 36%))"> </button>
+                <button class="button" data-gradient="linear-gradient(rgb(14, 14, 14), 30%, hsl(200, 32%, 36%))"> </button>
+                <button class="button" data-gradient="linear-gradient(rgb(14, 14, 14), 30%, hsl(270, 32%, 36%))"> </button>
+            </div>
+            
+            <div class="option-row" id="fonts-row" style="display: none;">
+                <button class="button" data-font="Arial, sans-serif">A</button>
+                <button class="button" data-font="Georgia, serif">G</button>
+                <button class="button" data-font="centaur">C</button>
+                <button class="button" data-font="Times New Roman, serif">T</button>
+            </div>
+            
+            <div class="option-row" id="sizes-row" style="display: none;">
+                <button class="button" data-size="1.4em">S</button>
+                <button class="button" data-size="1.7em">M</button>
+                <button class="button" data-size="2em">L</button>
+                <button class="button" data-size="2.3em">XL</button>
+            </div>
+            
+            <div class="option-row" id="width-row" style="display: none;">
+                <button class="button" data-width="600px">6</button>
+                <button class="button" data-width="700px">7</button>
+                <button class="button" data-width="800px">8</button>
+                <button class="button" data-width="900px">9</button>
+            </div>
         </div>
     </div>
 
@@ -1203,41 +1416,88 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-          
-             // Header click to show associated subheaders
-             $(".header").click(function () {
+            $(".header").click(function () {
         const group = $(this).data("group");
+        
+        // Special handling for Mason
+        if (group === "group-mason") {
+            const masonHeadersVisible = $("[data-mason='true']").not(".hidden").length > 0;
+            
+            if (masonHeadersVisible) {
+                // Hide Mason's headers and show all regular top-level headers
+                $("[data-mason='true']").addClass("hidden");
+                $(".header").not("[data-mason='true']").removeClass("hidden");
+            } else {
+                // Show only Mason's headers
+                $(".header").not(this).not("[data-mason='true']").addClass("hidden");
+                $("[data-mason='true']").removeClass("hidden");
+            }
+            // Always hide all subheaders and items
+            $(".sub-header, .item").addClass("hidden");
+            return;
+        }
+        
+        // Special handling for Mason's sub-headers
+        if ($(this).attr("data-mason") === "true") {
+            const isExpanded = $(this).siblings(`.sub-header[data-group='${group}']`).not(".hidden").length > 0;
+            
+            $(".sub-header, .item").addClass("hidden");
+            if (isExpanded) {
+                // Show all Mason's headers again
+                $("[data-mason='true']").removeClass("hidden");
+                // Keep Mason visible
+                $("[data-group='group-mason']").removeClass("hidden");
+            } else {
+                // Hide other Mason headers but keep this one
+                $("[data-mason='true']").addClass("hidden");
+                $(this).removeClass("hidden");
+                $(this).siblings(`.sub-header[data-group='${group}']`).removeClass("hidden");
+                // Keep Mason visible
+                $("[data-group='group-mason']").removeClass("hidden");
+            }
+            return;
+        }
+        
+        
+        // Modified behavior for other headers
         const isExpanded = $(this).siblings(`.sub-header[data-group='${group}']`).not(".hidden").length > 0;
 
-        // Toggle visibility
-        $(".sub-header, .item").addClass("hidden"); // Hide all subheaders and items
+        $(".sub-header, .item").addClass("hidden");
         if (isExpanded) {
-            $(".header").removeClass("hidden"); // Show all headers
+            // Show only non-Mason headers unless Mason section is active
+            if ($("[data-mason='true']").not(".hidden").length > 0) {
+                // If Mason section is active, keep Mason headers visible
+                $("[data-mason='true']").removeClass("hidden");
+                $("[data-group='group-mason']").removeClass("hidden");
+            } else {
+                // Otherwise show only regular headers
+                $(".header").not("[data-mason='true']").removeClass("hidden");
+            }
         } else {
-            $(".header").not(this).addClass("hidden"); // Hide other headers
-            $(this).siblings(`.sub-header[data-group='${group}']`).removeClass("hidden"); // Show associated subheaders
-        }
-    });
-
-    // Subheader click to show associated items
-    $(".sub-header").click(function () {
-        const group = $(this).data("group");
-        const isExpanded = $(this).nextUntil(".sub-header", ".item").not(".hidden").length > 0;
-
-        if (isExpanded) {
-            // If items are currently shown, hide them and show all subheaders
-            $(".item").addClass("hidden");
+            $(".header").not(this).addClass("hidden");
             $(this).siblings(`.sub-header[data-group='${group}']`).removeClass("hidden");
-            $(this).removeClass("hidden");
-        } else {
-            // Hide all other subheaders and items
-            $(".sub-header").addClass("hidden");
-            $(".item").addClass("hidden");
-            // Show only this subheader and its items
-            $(this).removeClass("hidden");
-            $(this).nextUntil(".sub-header", ".item").removeClass("hidden");
         }
     });
+    $(".sub-header").click(function() {
+   const group = $(this).data("group");
+   const currentSubHeader = $(this);
+   const isExpanded = $(this).nextUntil('.sub-header', '.item').not('.hidden').length > 0;
+   
+   if (!isExpanded) {
+       // Hide all items and other subheaders
+       $(".item, .sub-header").addClass("hidden");
+       // Show current subheader
+       $(this).removeClass("hidden");
+       // Show items until next subheader
+       $(this).nextUntil('.sub-header', '.item').removeClass("hidden");
+   } else {
+       // Show only sibling subheaders with same group
+       $(`[data-group='${group}'].sub-header`).removeClass("hidden");
+       // Hide all items
+       $(".item").addClass("hidden");
+   }
+});
+    
 
             // Item click to load content
             $(".item").click(function () {
@@ -1249,59 +1509,87 @@
 
             // Function to update background with CSS rule
             function updateBackground(backgroundValue) {
-                const styleSheet = document.styleSheets[0];
-                const rules = styleSheet.cssRules || styleSheet.rules;
-                for (let i = 0; i < rules.length; i++) {
-                    if (rules[i].selectorText === "body::before") {
-                        rules[i].style.background = backgroundValue;
-                        localStorage.setItem("background", backgroundValue);
-                        break;
-                    }
-                }
+        const styleSheet = document.styleSheets[0];
+        const rules = styleSheet.cssRules || styleSheet.rules;
+        for (let i = 0; i < rules.length; i++) {
+            if (rules[i].selectorText === "body::before") {
+                rules[i].style.background = backgroundValue;
+                localStorage.setItem("background", backgroundValue);
+                break;
             }
+        }
+    }
 
-            // Load saved preferences
-            const savedBackground = localStorage.getItem("background");
-            const savedFont = localStorage.getItem("font");
+    // Keep all your localStorage loading
+    const savedBackground = localStorage.getItem("background");
+    const savedFont = localStorage.getItem("font");
+    const savedFontSize = localStorage.getItem("fontSize");
+    const savedWidth = localStorage.getItem("contentWidth");
 
-            if (savedBackground) {
-                updateBackground(savedBackground);
-            }
+    if (savedBackground) {
+        updateBackground(savedBackground);
+    }
+    if (savedFont) {
+        $("body").css("font-family", savedFont);
+    }
+    if (savedFontSize) {
+        $(".content").css("font-size", savedFontSize);
+    }
+    if (savedWidth) {
+        $(".content").css("max-width", savedWidth);
+    }
 
-            if (savedFont) {
-                $("body").css("font-family", savedFont);
-            }
-
-            $("#redGrade-background").click(function () {
-                updateBackground(" linear-gradient(rgb(14, 14, 14), hsl(10, 32%, 36%))");
-            });
-
-            $("#greenGrade-background").click(function () {
-                updateBackground("linear-gradient(rgb(14, 14, 14), 30%, hsl(110, 32%, 36%))");
+    // Add the new button handlers
+    $('.control-toggle').click(function() {
+    const type = $(this).data('type');
+    const targetRow = $(`#${type}-row`);
+    
+    // If this row is already visible, hide it
+    if (targetRow.css('display') === 'flex') {
+        targetRow.hide();
+        return;
+    }
+    
+    // Hide all other rows
+    $('.option-row').hide();
+    
+    // Show this row with flex display
+    targetRow.css('display', 'flex');
 });
 
-            $("#arial-font").click(function () {
-                const arialFont = "Arial, sans-serif";
-                $("body").css("font-family", arialFont);
-                localStorage.setItem("font", arialFont);
-            });
+    // Color buttons
+    $('#colors-row button').click(function() {
+        const gradient = $(this).data('gradient');
+        updateBackground(gradient);
+    });
 
-            $("#georgia-font").click(function () {
-                const georgiaFont = "Georgia, serif";
-                $("body").css("font-family", georgiaFont);
-                localStorage.setItem("font", georgiaFont);
-            });
+    // Font buttons
+    $('#fonts-row button').click(function() {
+        const fontFamily = $(this).data('font');
+        $("body").css("font-family", fontFamily);
+        localStorage.setItem("font", fontFamily);
+    });
 
-            $("#centaur-font").click(function () {
-                const centaurFont = "centaur";
-                $("body").css("font-family", centaurFont);
-                localStorage.setItem("font", centaurFont);
-            });
-            const layoutToggle = $("#layout-toggle");
-            const container = $(".container");
+    // Size buttons
+    $('#sizes-row button').click(function() {
+        const fontSize = $(this).data('size');
+        $(".content").css("font-size", fontSize);
+        localStorage.setItem("fontSize", fontSize);
+    });
 
-// Load saved layout preference
-const savedLayout = localStorage.getItem("layout");
+    // Width buttons
+    $('#width-row button').click(function() {
+        const width = $(this).data('width');
+        $(".content").css("max-width", width);
+        localStorage.setItem("contentWidth", width);
+    });
+
+    // Keep your layout toggle variables and code
+    const layoutToggle = $("#layout-toggle");
+    const container = $(".container");
+
+    // Keep your layout toggle saved preference code
+    const savedLayout = localStorage.getItem("layout");
     if (savedLayout === "vertical") {
         container.addClass("vertical-layout");
         layoutToggle.html("↔");
@@ -1321,6 +1609,9 @@ const savedLayout = localStorage.getItem("layout");
             $(this).html("↕");
         }
     });
+           
+
+
         });
     </script>
 </body>
