@@ -310,7 +310,53 @@
     padding-left: 10px;
     color: hsl(34, 98%, 90%);
     font-family: Georgia, 'Times New Roman', Times, serif ;
+    opacity: 1;
+    transition: opacity 0.2s;
     }
+    .item.active {
+    color: hsl(34, 98%, 87%); /* Slightly brighter color */
+    text-shadow: 0 0 2px hsla(34, 96%, 90%, 0.071); /* Subtle glow effect */
+}
+ 
+
+
+
+.item:hover {
+    opacity: .95;
+}
+
+    .content-container {
+    width: 100%;
+}
+
+.content-nav {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 0.75em; /* Reduced from 1em */
+    flex-wrap: wrap;
+    justify-content: center; /* Centers the sub-items */
+}
+
+.content-item {
+    cursor: pointer;
+    color: hsl(34, 98%, 90%);
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    font-size: 0.85em; /* Makes sub-items 50% smaller */
+}
+
+.content-item:hover {
+    opacity: 1;
+}
+
+.content-text {
+    margin-top: 1em;
+}
+
+.content-text.hidden {
+    display: none;
+}
+
 
 
 
@@ -479,6 +525,14 @@
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="theStoic"> The Stoic</div>
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="Platonist">Platonist </div>
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="TheSceptic">The Sceptic </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="HumanNature">Human Nature </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="SpeciesPhilosophy">Species of Philosophy  </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="PrincipleMorals">Principle of Morals  </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="scepticism">Scepticism  </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="naturalhistoryreligion">Natural History</div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="MiraclesProvidence">Divine</div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="ideas">Ideas</div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="sceptical">Thinking </div>
 
             <div data-group="group9" class="sub-header hidden">Leibnitz </div>
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="LetterFoucher"> Letter to Foucher</div>
@@ -957,18 +1011,20 @@
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="dearbrutality">Dear Brutality</div>
 
             <!--Alpha 9 -->
-            <div data-group="group6" class="sub-header hidden">Akpha 3 </div>
+            <div data-group="group6" class="sub-header hidden">Alpha 3 </div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="farandgreen">Far and Green</div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="nearandplenty">Near and Plenty</div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="meagerends">Meager Ends</div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="thepathofhigh">The Path of High</div>
+            <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="EarthBound">Earth Bound</div>
+
 
             <!--  -->
             <div data-group="group6" class="sub-header hidden">Emerald </div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="thegoodlife">The Good Life</div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="pointofcomparison">Point of Comparison</div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="sparkedapproach">Sparked Approach</div>
-            <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="virtueandvice">Virtue and Vice</div>
+            <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="ofvirtueandvice">Virtue and Vice</div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="tidesofcontent">Tides of Content</div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="partialpath">Partial Path</div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="livingjoy">Living Joy</div>
@@ -990,7 +1046,7 @@
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="fullmystery">Full Mystery</div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="termsforsoil">Terms for Soil</div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="soul">Soul</div>
-            <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="appearanceofsense">Appearance of Sense</div>
+            <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="appearenceofsense">Appearance of Sense</div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="plateofplates">Plate of Plates</div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="fullscomplexion">Full's Complexion</div>
             <div class="item hidden"  data-group="group6" class="item" data-file="Moral.html" data-id="properthought">Proper Thought</div>
@@ -1091,7 +1147,6 @@
             <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="aggregatemarks">Aggregate Marks</div>
             <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="domainofman">Domain of Man</div>
             <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="graspfornorms">Grasp For Norms</div>
-            <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="outofthepast">Out of the Past</div>
             <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="seaofexpression">Sea of Expression</div>
             <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="trek">Trek</div>
             <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="openedup">Opened Up</div>
@@ -1150,7 +1205,7 @@
             <div data-group="group7" class="sub-header hidden">Points </div>
             <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="objectandbase">Object & Base</div>
             <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="ofknowledge">Of Knowledge</div>
-            <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="paintandportrait">Paint & Portrait</div>
+            <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="paintportrait">Paint & Portrait</div>
             <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="relationtoman">Relation To Man</div>
             <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="fullandgoing">Full and Going</div>
             <div class="item hidden"  data-group="group7" class="item" data-file="Moral.html" data-id="subjectandthought">Subject and Thought</div>
@@ -1214,7 +1269,7 @@
 
             <!-- Joy -->
             <div data-group="group8" class="sub-header hidden">Joy </div>
-            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="butterandbread">Butter & Bread</div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="butterbread">Butter & Bread</div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="trulyfull">Truly Full</div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="greatergoods">Greater Goods</div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="strengthfornot">Strength For Not</div>
@@ -1245,9 +1300,13 @@
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="equallyaimed">Equally Aimed</div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="cleardeeds">Clear Deeds</div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="oldaims">Old Aims</div>
-            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="comingbound">Coming Bound</div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="thecomingbound">Coming Bound</div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="firstsight">First Sight</div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="toJess"> To Jess </div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="roadsofar">Road So Far</div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="Obsinate">Obsinate</div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="ForMe">For Me</div>
+
 
             <!-- Necessity -->
             <div data-group="group8" class="sub-header hidden">Linens </div>
@@ -1297,7 +1356,7 @@
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="growingaim">Growing Aim</div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="calmhope">Calm Hope</div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="purevista">Pure Vista</div>
-            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="mystrengthreveals">My Strength Reveals</div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="mystrenghtreveals">My Strength Reveals</div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="awkwardtrunk">Awkward Trunk</div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="frombelowyearend">From Below</div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="soonfinal">Soon Final</div>
@@ -1308,6 +1367,23 @@
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="trapped">Trapped</div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="meanstogrow">Means To Grow</div>
             <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="aneasierview">An Easier View</div>
+
+
+            <div data-group="group8" class="sub-header hidden">Truly Me </div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="OnKids">On Kids </div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="DutyHappiness">Duty & Happiness</div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="OIpenTreasure">Open Treasure</div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="BucketFull">Bucket Full  </div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="GooodAhead">Good Ahead  </div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="BetterGood">Better Good  </div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="NearDear">Near & Dear  </div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="HollowDuty">Hollow Duty  </div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="Blurred">Blurred  </div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="CleaningUp">Cleaning Up  </div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="ImrpvoedPath">Imrpvoed Path  </div>
+            <div class="item hidden"  data-group="group8" class="item" data-file="Moral.html" data-id="Comissioned">Comissioned  </div>
+          
+            
 
 
            
@@ -1499,13 +1575,24 @@
 });
     
 
-            // Item click to load content
-            $(".item").click(function () {
-                const file = $(this).data("file");
-                const divId = $(this).data("id");
-                $(".content").load(file + " #" + divId);
-            });
-        
+$(".item").click(function () {
+    // Remove active class from all items
+    $(".item").removeClass("active");
+    // Add active class to clicked item
+    $(this).addClass("active");
+    
+    const file = $(this).data("file");
+    const divId = $(this).data("id");
+    $(".content").load(file + " #" + divId, function() {
+        $(".content-item").click(function() {
+            const contentId = $(this).data("content");
+            $(".content-text").addClass("hidden");
+            $("#" + contentId).removeClass("hidden");
+            $(".content-item").css("opacity", "0.8");
+            $(this).css("opacity", "1");
+        });
+    });
+});
 
             // Function to update background with CSS rule
             function updateBackground(backgroundValue) {
