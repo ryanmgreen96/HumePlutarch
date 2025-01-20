@@ -38,6 +38,12 @@
     z-index: -1;
     transition: background 0.3s ease;
     }
+    a {
+  outline: none;  /* Removes the focus outline */
+  font-style: normal;
+  text-decoration: none; 
+
+}
 
     @font-face {
     font-family: 'centaur';   
@@ -219,6 +225,13 @@
     font-size: 18px;
 }
 
+#pdfBtn{
+    background-color: #271b1b;
+    color: #ab9374;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.1em;
+}
+
 
     
 
@@ -280,6 +293,8 @@
     font-size: 1.7em;
     padding-top: 2em;
     padding-bottom: 2em;
+    
+    
 }
 
 
@@ -488,9 +503,16 @@
     margin-left: 10px;
     }
 
+ @media (min-width: 900px) {
+    .content {
+        padding-left: 1em;
+        
+    }
+}
     @media (max-width: 900px) {
     .content {
         width: 90%;
+        
     }
 }
 
@@ -521,7 +543,7 @@
             <div data-group="group9" class="sub-header hidden"> Hume</div>
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="myLife">My Own Life </div>
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="ourInsight">A New Scene of Thought </div>
-             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="DelicacyTaste">Leisure </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="DelicacyTaste">Leisure </div>
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="VerbalDisputes">Verbal Disputes </div>
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="Epicurean">Epicurean </div>
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="theStoic"> The Stoic</div>
@@ -548,8 +570,8 @@
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="Locke">Locke</div>
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id="BarbaricPhysics">Barbaric Physics</div>
 
-            <div data-group="group9" class="sub-header hidden"> </div>
-            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
+            <div data-group="group9" class="sub-header hidden">Old </div>
+            <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> <a href="/pdfFiles/Lockes2ndTreatise.html"></a> </div>
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
             <div class="item hidden"  data-group="group9" class="item" data-file="greats.html" data-id=""> </div>
@@ -1447,6 +1469,7 @@
                 <button class="button control-toggle" data-type="fonts">f</button>
                 <button class="button control-toggle" data-type="sizes">S</button>
                 <button class="button control-toggle" data-type="width">W</button>
+                <a href="/Files/pdfFiles/1pdfmain.html"><button id="pdfBtn" class="button">PD</button></a>
                 <button class="button" id="layout-toggle">↕</button>
             </div>
             
