@@ -1,6 +1,7 @@
 const urlsToCache = [
   "index.html",
-   "Moral.html",
+  "/index.html",
+  "Moral.html",
   "theLimit.html",
   "manifest.json",
   "Files/icon/icon-192.png",
