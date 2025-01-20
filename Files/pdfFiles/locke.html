@@ -4,63 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Locke's Second Treatise Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.5.141/pdf.min.js"></script>
     <style>
- html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%; /* Ensure full height for both html and body */
-    overflow: auto; /* Allow scrolling on the body */
-}
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
 
-#viewer-container {
-    width: 100%;
-    height: 100vh; /* Take up full viewport height */
-    overflow: auto; /* Enable scrolling inside the viewer container */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    position: relative;
-    padding-top: 40px; /* Space for top bar */
-}
+        #viewer-container {
+            width: 100%;
+            height: calc(100vh - 150px); /* Reserve space for controls */
+            overflow: auto; /* Enable scrolling */
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
 
-/* Hide scrollbar in webkit browsers (Chrome, Safari, etc.) */
-#viewer-container::-webkit-scrollbar {
-    display: none;
-}
+        canvas {
+            margin: 20px auto; /* Center canvas horizontally */
+            display: block;
+        }
 
-/* Enable scrolling within iframe and prevent iframe scrollbar */
-iframe {
-    border: none;
-    transition: transform 0.3s ease;
-    width: 100%;
-    height: 100%;
-    max-width: 1200px;
-    transform-origin: top left;
-    overflow: auto; /* Allow scrolling inside iframe */
-}
-
-
-
-
-
-        .controls {
-            margin-top: 10px;
+        .controls, .zoom-buttons, ul {
             text-align: center;
+            margin: 10px 0;
         }
 
         ul {
-            text-align: center;
             list-style-type: none;
             padding: 0;
         }
 
         ul li {
             margin: 5px 0;
-        }
-
-        .zoom-buttons {
-            margin-top: 10px;
-            text-align: center;
         }
 
         button {
@@ -72,7 +51,6 @@ iframe {
 </head>
 <body>
     <a href="/Files/pdfFiles/1pdfmain.html"><h1>Locke's Second Treatise Viewer</h1></a>
-
     <button onclick="goBack()">Back to Main Page</button>
 
     <ul>
@@ -82,87 +60,107 @@ iframe {
         <li><a href="#" onclick="goToPage(50)">Chapter 3: Lessons Learned</a></li>
     </ul>
 
-    <!-- Zoom Controls -->
+    <div class="controls">
+        <button onclick="prevPage()">Previous Page</button>
+        <span>Page: <span id="page-num">1</span> / <span id="page-count">0</span></span>
+        <button onclick="nextPage()">Next Page</button>
+    </div>
+
     <div class="zoom-buttons">
         <button onclick="zoomIn()">Zoom In</button>
         <button onclick="zoomOut()">Zoom Out</button>
     </div>
 
-    <!-- PDF Viewer Container -->
     <div id="viewer-container">
-        <iframe id="pdf-viewer" src="/Files/pdf/Lockes2ndTreatise.pdf" height="100%"></iframe>
+        <canvas id="pdf-canvas"></canvas>
     </div>
+
     <script>
-        const pdfFileName = "/Files/pdf/Lockes2ndTreatise.pdf"; // PDF file path
+        const pdfFileName = "/Files/pdf/Lockes2ndTreatise.pdf"; // Path to your PDF
         const pdfKey = `${pdfFileName}-page`; // Unique key for localStorage
-        const iframe = document.getElementById('pdf-viewer');
+        let pdfDoc = null;
+        let pageNum = 1; // Default to the first page
         let zoomLevel = 1; // Default zoom level
-    
-        // Set initial zoom level dynamically based on screen width
-        function setDefaultZoom() {
-            const screenWidth = window.innerWidth;
-    
-            // Adjust zoom level based on screen width
-            if (screenWidth <= 1700) {
-                zoomLevel = 1.5; // Small screens
-            } else if (screenWidth <= 1024) {
-                zoomLevel = 1.5; // Medium screens
-            } else {
-                zoomLevel = 1; // Large screens
-            }
-    
-            updateZoom(); // Apply the zoom level
-        }
-    
-        // Set initial zoom level when the page loads
-        window.addEventListener('load', () => {
-            setDefaultZoom();
-    
-            // Restore the saved page if available
+        const canvas = document.getElementById('pdf-canvas');
+        const ctx = canvas.getContext('2d');
+        const pageNumSpan = document.getElementById('page-num');
+        const pageCountSpan = document.getElementById('page-count');
+
+        // Load the PDF
+        pdfjsLib.getDocument(pdfFileName).promise.then((doc) => {
+            pdfDoc = doc;
+            pageCountSpan.textContent = pdfDoc.numPages;
             const savedPage = localStorage.getItem(pdfKey);
-            if (savedPage) {
-                iframe.src = `${pdfFileName}#page=${savedPage}`;
-            }
+            pageNum = savedPage ? parseInt(savedPage, 10) : 1;
+            renderPage(pageNum);
         });
-    
+
+        // Render a specific page
+        function renderPage(num) {
+            pdfDoc.getPage(num).then((page) => {
+                const viewport = page.getViewport({ scale: zoomLevel });
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport,
+                };
+                page.render(renderContext).promise.then(() => {
+                    // Adjust viewer container size dynamically
+                    document.getElementById('viewer-container').style.height = `${viewport.height * zoomLevel}px`;
+                });
+
+                // Update displayed page number
+                pageNumSpan.textContent = num;
+            });
+        }
+
         // Save the current page to localStorage before leaving
-        window.addEventListener('unload', () => {
-            const pageNumber = iframe.src.split('#page=')[1] || 1;
-            localStorage.setItem(pdfKey, pageNumber);
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem(pdfKey, pageNum);
         });
-    
+
+        // Navigate to a specific page
+        function goToPage(num) {
+            if (num > 0 && num <= pdfDoc.numPages) {
+                pageNum = num;
+                renderPage(pageNum);
+            }
+        }
+
+        // Previous page
+        function prevPage() {
+            if (pageNum > 1) {
+                pageNum--;
+                renderPage(pageNum);
+            }
+        }
+
+        // Next page
+        function nextPage() {
+            if (pageNum < pdfDoc.numPages) {
+                pageNum++;
+                renderPage(pageNum);
+            }
+        }
+
         // Zoom In function
         function zoomIn() {
             zoomLevel += 0.2;
-            updateZoom();
+            renderPage(pageNum);
         }
-    
+
         // Zoom Out function
         function zoomOut() {
-            zoomLevel = Math.max(1, zoomLevel - 0.2);
-            updateZoom();
+            zoomLevel = Math.max(0.5, zoomLevel - 0.2); // Prevent zoom out below 50%
+            renderPage(pageNum);
         }
-    
-        // Function to update the zoom level of the PDF
-        function updateZoom() {
-            iframe.style.transform = `scale(${zoomLevel})`;
-            iframe.style.transformOrigin = 'top center';
-        }
-    
-        // Function to navigate to a specific page in the PDF
-        function goToPage(pageNumber) {
-            iframe.src = ''; // Temporarily reset iframe
-            setTimeout(() => {
-                iframe.src = `${pdfFileName}#page=${pageNumber}`;
-            }, 10);
-        }
-    
-        // Function to go back to the main page
+
+        // Go back to the main page
         function goBack() {
-            window.location.href = 'index.html';
+            window.location.href = '/Files/pdfFiles/1pdfmain.html';
         }
     </script>
-    
-
 </body>
 </html>
