@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locke's Second Treatise Viewer</title>
+    <style>
+ html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Ensure full height for both html and body */
+    overflow: auto; /* Allow scrolling on the body */
+}
+
+#viewer-container {
+    width: 100%;
+    height: 100vh; /* Take up full viewport height */
+    overflow: auto; /* Enable scrolling inside the viewer container */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    padding-top: 40px; /* Space for top bar */
+}
+
+/* Hide scrollbar in webkit browsers (Chrome, Safari, etc.) */
+#viewer-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Enable scrolling within iframe and prevent iframe scrollbar */
+iframe {
+    border: none;
+    transition: transform 0.3s ease;
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    transform-origin: top left;
+    overflow: auto; /* Allow scrolling inside iframe */
+}
+
+
+
+
+
+        .controls {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        ul {
+            text-align: center;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 5px 0;
+        }
+
+        .zoom-buttons {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <a href="/Files/pdfFiles/1pdfmain.html"><h1>Locke's Second Treatise Viewer</h1></a>
+
+    <button onclick="goBack()">Back to Main Page</button>
+
+    <ul>
+        <li><a href="#" onclick="goToPage(1)">Introduction</a></li>
+        <li><a href="#" onclick="goToPage(10)">Chapter 1: Early Adventures</a></li>
+        <li><a href="#" onclick="goToPage(25)">Chapter 2: Into the Wild</a></li>
+        <li><a href="#" onclick="goToPage(50)">Chapter 3: Lessons Learned</a></li>
+    </ul>
+
+    <!-- Zoom Controls -->
+    <div class="zoom-buttons">
+        <button onclick="zoomIn()">Zoom In</button>
+        <button onclick="zoomOut()">Zoom Out</button>
+    </div>
+
+    <!-- PDF Viewer Container -->
+    <div id="viewer-container">
+        <iframe id="pdf-viewer" src="/Files/pdf/Lockes2ndTreatise.pdf" height="100%"></iframe>
+    </div>
+    <script>
+        const pdfFileName = "/Files/pdf/Lockes2ndTreatise.pdf"; // PDF file path
+        const pdfKey = `${pdfFileName}-page`; // Unique key for localStorage
+        const iframe = document.getElementById('pdf-viewer');
+        let zoomLevel = 1; // Default zoom level
+    
+        // Set initial zoom level dynamically based on screen width
+        function setDefaultZoom() {
+            const screenWidth = window.innerWidth;
+    
+            // Adjust zoom level based on screen width
+            if (screenWidth <= 1700) {
+                zoomLevel = 1.5; // Small screens
+            } else if (screenWidth <= 1024) {
+                zoomLevel = 1.5; // Medium screens
+            } else {
+                zoomLevel = 1; // Large screens
+            }
+    
+            updateZoom(); // Apply the zoom level
+        }
+    
+        // Set initial zoom level when the page loads
+        window.addEventListener('load', () => {
+            setDefaultZoom();
+    
+            // Restore the saved page if available
+            const savedPage = localStorage.getItem(pdfKey);
+            if (savedPage) {
+                iframe.src = `${pdfFileName}#page=${savedPage}`;
+            }
+        });
+    
+        // Save the current page to localStorage before leaving
+        window.addEventListener('unload', () => {
+            const pageNumber = iframe.src.split('#page=')[1] || 1;
+            localStorage.setItem(pdfKey, pageNumber);
+        });
+    
+        // Zoom In function
+        function zoomIn() {
+            zoomLevel += 0.2;
+            updateZoom();
+        }
+    
+        // Zoom Out function
+        function zoomOut() {
+            zoomLevel = Math.max(1, zoomLevel - 0.2);
+            updateZoom();
+        }
+    
+        // Function to update the zoom level of the PDF
+        function updateZoom() {
+            iframe.style.transform = `scale(${zoomLevel})`;
+            iframe.style.transformOrigin = 'top center';
+        }
+    
+        // Function to navigate to a specific page in the PDF
+        function goToPage(pageNumber) {
+            iframe.src = ''; // Temporarily reset iframe
+            setTimeout(() => {
+                iframe.src = `${pdfFileName}#page=${pageNumber}`;
+            }, 10);
+        }
+    
+        // Function to go back to the main page
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+    </script>
+    
+
+</body>
+</html>

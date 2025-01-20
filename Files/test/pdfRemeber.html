@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Bookmarking with Embedded Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #controls {
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        #pdf-container {
+            height: calc(100vh - 50px);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f4f4f4;
+        }
+        iframe {
+            width: 80%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <div>
+            <button onclick="prevPage()">Previous</button>
+            <button onclick="nextPage()">Next</button>
+        </div>
+        <div>
+            <span>Current Page: <span id="currentPage">1</span></span>
+            <button onclick="bookmarkPage()">Bookmark</button>
+        </div>
+    </div>
+    <div id="pdf-container">
+        <!-- Embedded PDF Viewer -->
+        <iframe id="pdf-embed" src="" title="PDF Viewer"></iframe>
+    </div>
+    <script>
+        const pdfPath = 'C:\Users\ryanm\Documents\Shop\Websites\PWA\Shikar-Memories.pdf'; // Path to your PDF
+        let pageNum = 1;
+
+        // Update the embedded PDF viewer URL with the current page number
+        function updatePdfViewer() {
+            const pdfEmbed = document.getElementById('pdf-embed');
+            pdfEmbed.src = `${pdfPath}#page=${pageNum}`;
+            document.getElementById('currentPage').textContent = pageNum;
+            saveCurrentPage(pageNum);
+        }
+
+        // Load the PDF with a specific page number (from localStorage or default)
+        function loadPDF() {
+            const savedPage = getSavedPage();
+            pageNum = savedPage ? savedPage : 1;
+            updatePdfViewer();
+        }
+
+        // Save the current page to localStorage
+        function saveCurrentPage(num) {
+            localStorage.setItem(`${pdfPath}-currentPage`, num);
+        }
+
+        // Get the saved page from localStorage
+        function getSavedPage() {
+            return parseInt(localStorage.getItem(`${pdfPath}-currentPage`));
+        }
+
+        // Change to the previous page
+        function prevPage() {
+            if (pageNum <= 1) return;
+            pageNum--;
+            updatePdfViewer();
+        }
+
+        // Change to the next page
+        function nextPage() {
+            pageNum++;
+            updatePdfViewer();
+        }
+
+        // Bookmark the current page
+        function bookmarkPage() {
+            alert(`Bookmarked page ${pageNum} for ${pdfPath}`);
+        }
+
+        // Initialize the PDF
+        loadPDF();
+    </script>
+</body>
+</html>

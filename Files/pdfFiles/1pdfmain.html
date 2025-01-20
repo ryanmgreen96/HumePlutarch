@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Main</title>
+  <style>
+    body {
+      background-color: #013220;
+      color: #fff;
+      font-family: 'Times New Roman', Times, serif, Times, serif;
+      margin: 0;
+      padding: 0;
+      
+    }
+    .container {
+      margin: 2em auto 0; /* Center horizontally, near the top with a 2em margin */
+      max-width: 700px;
+      text-align: center;
+    }
+    .chapters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .chapter {
+      color: #ffcc66;
+      cursor: pointer;
+      padding: 0;
+      border: none;
+      font-size: 1.2em;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .chapter:hover {
+      color: #e6b955; /* Slight color change on hover */
+    }
+    .chapter.selected {
+      color: #e6b955; /* Slightly darker gold to indicate selection */
+    }
+    .items {
+      margin-top: 1em;
+      display: none;
+      flex-direction: column;
+    }
+    .items.visible {
+      display: flex;
+    }
+    .item {
+      color: #f5f5dc;
+      text-decoration: none;
+      margin: 5px 0;
+      font-size: 1em;
+      transition: color 0.3s ease;
+    }
+    .item:hover {
+      color: #e6e6d2; /* Subtle highlight effect on hover */
+    }
+    a{
+        text-decoration: none;
+        outline: none;
+        color: inherit;
+    }
+    h1{
+        color: #a17d2f;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/index2.html"><h1>PDF</h1></a>
+    <div class="chapters" id="chapters">
+      <div class="chapter" data-chapter="liberty">Liberty</div>
+      <div class="chapter" data-chapter="justice">Justice</div>
+      <!-- Add more chapters here -->
+    </div>
+    <div class="items" id="items-liberty">
+      <a href="/Files/pdfFiles/locke.html" class="item">Locke</a>
+      <a href="#" class="item">Hobbes</a>
+      <!-- Add more items here -->
+    </div>
+    <div class="items" id="items-justice">
+      <a href="#" class="item">Rawls</a>
+      <a href="/Files/pdfFiles/Shikar.html" class="item">Shikar</a>
+      <!-- Add more items here -->
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const chapters = document.querySelectorAll('.chapter');
+      const items = document.querySelectorAll('.items');
+      const selectedChapter = localStorage.getItem('selectedChapter');
+
+      if (selectedChapter) {
+        document.querySelector(`.chapter[data-chapter="${selectedChapter}"]`)?.classList.add('selected');
+        document.getElementById(`items-${selectedChapter}`)?.classList.add('visible');
+      }
+
+      chapters.forEach(chapter => {
+        chapter.addEventListener('click', function () {
+          const chapterName = this.dataset.chapter;
+
+          // Toggle visibility and selection
+          items.forEach(item => item.classList.remove('visible'));
+          chapters.forEach(ch => ch.classList.remove('selected'));
+
+          this.classList.add('selected');
+          document.getElementById(`items-${chapterName}`)?.classList.add('visible');
+
+          // Save state
+          localStorage.setItem('selectedChapter', chapterName);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
