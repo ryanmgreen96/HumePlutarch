@@ -3,10 +3,15 @@ const urlsToCache = [
   "Moral.html",
   "theLimit.html",
   "manifest.json",
-  "icon/icon-192.png",
-  "icon/icon-512.png",
-  "icon/MountainTown.png",
-  "icon/clouds.jpg"
+  "Files/icon/icon-192.png",
+  "Files/icon/icon-512.png",
+  "Files/icon/MountainTown.png",
+  "Files/icon/clouds.jpg",
+  "/Files/pdfFiles/1pdfmain.html",
+  "/Files/pdf/Shikar-Memories.pdf",
+  "/Files/pdf/locke.pdf",
+  "/Files/pdf/Lockes2ndTreatise.pdf",
+  "/Files/pdf/Shikar-Memories.pdf"
 ];
 
 const CACHE_NAME = "pwa-cache-v1";
